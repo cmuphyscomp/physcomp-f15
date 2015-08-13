@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Extending 3pi - Outputs</title>
+  </head>
+  <body>
+    <h2>Exercise: Extending 3pi - Outputs</h2>
+<h4>Objective</h4>
+
+    <p>You can extend the built-in capabilities of your 3pi robot in several ways. One can add additional sensors and actuators to the 3pi robot by utilizing the unused digital and anlog input and output pins available on the  ATmegaxx8  microcontroller as indicated in the <a href="https://www.pololu.com/docs/0J21/9">3pi pin assignments table</a>. In this excercise you will add an actuator (a DC motor, a servo, or a solenoid)  to your 3pi robot. In order to do so, you must identify the available digital output pins on the 3pi from the pin assignment table, and wire an available output pin to control your actuator using a MOSFET. </p>
+    <h4>Steps and observations</h4>
+    <ol>
+      <li>Add an actuator<a href="https://www.sparkfun.com/products/242"></a>  to the 3pi by wiring it to one of the free digital output pins on the 3pi (i.e. {PD0, PD1, PC5} which respectively map to arduinodigital pins {0, 1, 19}). Fasten the sensor to the robot such that actuation of the motor/servo/solenoid results in an audible sound (consider striking or striking the ground, or adding an additional passive sound making object--like a bell--to the robot).</li>
+      <li>Add an LED indicator to the 3pi robot by wiring it to another one of the free digital outoput pins on the 3pi.</li>
+      <li>Write a program that maps the robots overall speed to periodic lighting up of the LED.</li>
+      <li>Also map the robots speed of the motor/servo/solenoid; for example, the faster the robot goes, the faster the motor turns. </li>
+    </ol>
+
+    <h4>Comments</h4>
+    <ol>
+      <li>The actuator should be powered by the robot's main power source (ie the batteries), <em>not</em> by the ATMEL chip on-board. Use a MOSFET and find the battery voltage pins on the 3pi robot.</li>
+    </ol>
+
+    <p>&nbsp;</p>
+
+  <img class="alignnone" src="../extending-3pi-robots/bench-battery-grid_bb.png" />
+<img class="alignnone" src="../extending-3pi-robots/bench-battery-grid_schem.png" />
+    <h4>Other Files</h4>
+    <ol>
+      <li><a href="https://www.pololu.com/docs/0J21/9">Pololu 3pi Components and Pin Assignment Table</a></li>
+    </ol>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Extending 3pi - Inputs</title>
+  </head>
+  <body>
+    <h2>Exercise: Extending 3pi - Inputs</h2>
+<h4>Objective</h4>
+
+    <p>You can extend the built-in capabilities of your 3pi robot in several ways. One can add additional sensors and actuators to the 3pi robot by utilizing the unused digital and anlog input and output pins available on the  ATmegaxx8  microcontroller as indicated in the <a href="https://www.pololu.com/docs/0J21/9">3pi pin assignments table</a>. Note that since SPI and I2C are not readily available to 3pi users, we are limited to working with analog sensors.</p>
+    <h4>Steps and observations</h4>
+    <ol>
+      <li>Add an <a href="https://www.sparkfun.com/products/242">IR distance sensor</a>  to the 3pi that senses by wiring it to one of the free analog input pins on the 3pi (i.e. {PC5, ADC6, ADC7} which respectively map to arduino pins {5, 6, 7}). Fasten the sensor to the <em>front</em> of the robot.</li>
+      <li>Write a program that maps values from this sensor to some motor activity; specifically, write a program that detects obstacles in the robots way; make it so that when the robot gest too close to an obstacle (~2 inches), it  reverses, turns and goes forward in a different direction.</li>
+      <li>Experiment with different approaches to how the robot backs up and turns to choose a new direction</li>
+    </ol>
+
+    <h4>Comments</h4>
+
+    <p>&nbsp;</p>
+
+  <img class="alignnone" src="../extending-3pi-robots/bench-battery-grid_bb.png" />
+<img class="alignnone" src="../extending-3pi-robots/bench-battery-grid_schem.png" />
+    <h4>Other Files</h4>
+    <ol>
+      <li><a href="https://www.pololu.com/docs/0J21/9">Pololu 3pi Components and Pin Assignment Table</a></li>
+    </ol>
+  </body>
+</html>
