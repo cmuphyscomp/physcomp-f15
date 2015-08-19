@@ -44,8 +44,9 @@
     <h4>Steps and observations</h4>
 
     <ol>
-      <li>Wire up each circuit, being very careful to observe the correct input
-	polarity.</li>
+      <li>Wire up each circuit, beginning with the 7805 linear regulator.  Be
+	very careful to observe the correct input polarity.  You may substitute
+	a lab supply for the battery.</li>
 
       <li>Measure the unloaded outputs.  Not all switching regulators perform
 	well without any load at all.</li>
@@ -63,14 +64,18 @@
 
     <h4>Comments</h4>
 
-    <p>In the first example of a linear regulator, the the load is only
-      consuming 2.5&#160;Watts of energy while the regulator dissipates
-      3.5&#160;Watts, so this circuit is operating at only 42% efficiency.  Linear
-      regulator circuits are simple to use and inexpensive, so they are
-      applicable for low-power applications or where efficiency and heating are
-      not a problem.  The primary advantage is they are potentially low-noise
-      compared to switching regulators, so they often appear in high-fidelity
-      audio applications.</p>
+    <p>In the first example of a linear regulator dropping a 12V input to a 5V
+      output, the the load is only consuming 2.5&#160;Watts of energy while the
+      regulator dissipates 3.5&#160;Watts, so this circuit is operating at only
+      42% efficiency.  Linear regulator circuits are simple to use and
+      inexpensive, so they are applicable for low-power applications or where
+      efficiency and heating are not a problem.  The primary advantage is they
+      are potentially low-noise compared to switching regulators, so they often
+      appear in high-fidelity audio applications.</p>
+
+    <p>Despite the power inefficiency, we encourage you to use linear regulators
+      such as the 7805 in your projects whenever feasible as they are low-cost
+      and robust and well-suited to simple projects.</p>
     
     <p>In contrast, switching regulators typically operate as 85% efficiency or
       higher.  The availability has been remarkably eased by the introduction of
@@ -89,15 +94,22 @@
 	<li>etc., etc.</li>
       </ol>
     
+    <img class="alignnone" src="7805-regulator-schem.png" />
+    <img class="alignnone" src="voltage-regulation-step-down_bb.png" />
+    <img class="alignnone" src="voltage-regulation-step-down_schem.png" />
+    <img class="alignnone" src="voltage-regulation-step-up-step-down_bb.png" />
+    <img class="alignnone" src="voltage-regulation-step-up-step-down_schem.png" />
+    <img class="alignnone" src="voltage-regulation_bb.png" />
+    <img class="alignnone" src="voltage-regulation_schem.png" />
 
-  <img class="alignnone" src="voltage-regulation-step-down_bb.png" />
-<img class="alignnone" src="voltage-regulation-step-down_schem.png" />
-<img class="alignnone" src="voltage-regulation-step-up-step-down_bb.png" />
-<img class="alignnone" src="voltage-regulation-step-up-step-down_schem.png" />
-<img class="alignnone" src="voltage-regulation_bb.png" />
-<img class="alignnone" src="voltage-regulation_schem.png" />
-    <h4>Other Files</h4>
+    <h4>Reference</h4>
     <ol>
+      <li><a href="http://www.onsemi.com/pub_link/Collateral/NCP7800-D.PDF">datasheet for 7805, 7508, 7512, 7515 regulators</a></li>
+    </ol>
+
+<h4>Other Files</h4>
+    <ol>
+      <li><a href="7805-regulator.sch">7805-regulator.sch</a></li>
       <li><a href="voltage-regulation-step-down.fzz">voltage-regulation-step-down.fzz</a></li>
       <li><a href="voltage-regulation-step-up-step-down.fzz">voltage-regulation-step-up-step-down.fzz</a></li>
       <li><a href="voltage-regulation.fzz">voltage-regulation.fzz</a></li>
