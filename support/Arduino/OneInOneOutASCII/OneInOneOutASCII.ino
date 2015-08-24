@@ -1,13 +1,15 @@
-// OneInOneOutASCII.ino : Arduino program to act as an simplified hardware I/O server using a simple message protocol.
+/// \file OneInOneOutASCII.ino
+/// \brief Arduino program to act as an simplified hardware I/O server using a simple message protocol.
 
-// Copyright (c) 2014, Garth Zeglin.  All rights reserved. Licensed under the terms
-// of the BSD 3-clause license as included in LICENSE.
+/// \copyright Copyright (c) 2014, Garth Zeglin.  All rights reserved. Licensed
+///            under the terms of the BSD 3-clause license as included in
+///            LICENSE.
 
-// This example is intended as a starting point for adding low-latency
-// hardware-level computing on an Arduino coupled to dynamic code (e.g. Pure
-// Data or Python) on a laptop or Raspberry Pi.  The communications between the
-// Arduino and the host uses a simple message protocol based on lines of ASCII
-// text.
+/// \details This example is intended as a starting point for adding low-latency
+///          hardware-level computing on an Arduino coupled to dynamic code
+///          (e.g. Pure Data or Python) on a laptop or Raspberry Pi.  The
+///          communications between the Arduino and the host uses a simple
+///          message protocol based on lines of ASCII text.
 
 /****************************************************************/
 /**** ASCII messaging scheme ************************************/
@@ -83,7 +85,7 @@ static const int servo_output_pin = 4;
 /**** Utility functions *****************************************/
 /****************************************************************/
 
-// Send a single debugging string to the console.
+/// Send a single debugging string to the console.
 static void send_debug_message( const char *str )
 {
   Serial.print("dbg ");
@@ -91,7 +93,7 @@ static void send_debug_message( const char *str )
 }
 
 /****************************************************************/
-// Send a single debugging integer to the console.
+/// Send a single debugging integer to the console.
 static void send_debug_message( int i )
 {
   Serial.print("dbg ");
@@ -99,7 +101,7 @@ static void send_debug_message( int i )
 }
 
 /****************************************************************/
-// Send a single-argument message back to the host.
+/// Send a single-argument message back to the host.
 static void send_message( const char *command, long value )
 {
   Serial.print( command );
@@ -108,7 +110,7 @@ static void send_message( const char *command, long value )
 }
 
 /****************************************************************/
-// Send a two-argument message back to the host.
+/// Send a two-argument message back to the host.
 static void send_message( const char *command, long value1, long value2 )
 {
   Serial.print( command );
@@ -131,7 +133,10 @@ static int string_equal( char *str1, char *str2)
 // Application-specific message processing.  You can customize these functions
 // to add additional message types.
 
-// Process zero-argument messages with just a token. E.g. "stop" or "start".
+/// Convenience function provided to help with extending the messaging protocol;
+/// this function receives zero-argument messages which just contain a token as
+/// a string, e.g. "stop".  The protocol can also be extended by modifying
+/// parse_input_message().
 static void user_message_0( char *command )
 {
   if (string_equal(command, "stop")) {
@@ -147,7 +152,8 @@ static void user_message_0( char *command )
   // ...
 }
 
-// Process one-argument messages with a single value. E.g. "speed 33".
+/// Similar to user_message_0; process one-argument messages with a single
+/// value. E.g. "speed 33".
 static void user_message_1( char *command, int value )
 {
   if (string_equal(command, "speed")) {
@@ -157,7 +163,8 @@ static void user_message_1( char *command, int value )
   // ...
 }
 
-// Process two-argument messages. E.g. "pantilt 0 33".
+/// Similar to user_message_0; process two-argument messages. E.g. "pantilt 0
+/// 33".
 static void user_message_2( char *command, int value1, int value2 )
 {
   if (string_equal(command, "pantilt")) {
@@ -167,8 +174,9 @@ static void user_message_2( char *command, int value1, int value2 )
 }
 
 /****************************************************************/
-// Process an input message.  Unrecognized commands are silently ignored.
-
+/// Process an input message.  Unrecognized commands are silently ignored.
+///   \param argc   number of argument tokens
+///   \param argv   array of pointers to strings, one per token
 static void parse_input_message(int argc, char *argv[])
 {
   // Interpret the first token as a command symbol.
@@ -241,12 +249,12 @@ static void parse_input_message(int argc, char *argv[])
 }
 
 /****************************************************************/
-// Polling function to process messages arriving over the serial port.  Each
-// iteration through this polling function processes at most one character.  It
-// records the input message line into a buffer while simultaneously dividing it
-// into 'tokens' delimited by whitespace.  Each token is a string of
-// non-whitespace characters, and might represent either a symbol or an integer.
-// Once a message is complete, parse_input_message() is called.
+/// Polling function to process messages arriving over the serial port.  Each
+/// iteration through this polling function processes at most one character.  It
+/// records the input message line into a buffer while simultaneously dividing it
+/// into 'tokens' delimited by whitespace.  Each token is a string of
+/// non-whitespace characters, and might represent either a symbol or an integer.
+/// Once a message is complete, parse_input_message() is called.
 
 static void serial_input_poll(void)
 {
@@ -311,8 +319,10 @@ static void serial_input_poll(void)
 }
 
 /****************************************************************/
-// Polling function to read and send specific input values at periodic
-// intervals.  N.B. The timing calculation could be improved to reduce jitter.
+/// Polling function to read and send specific input values at periodic
+/// intervals.
+
+// N.B. The timing calculation could be improved to reduce jitter.
 
 static void hardware_input_poll(void)
 {
@@ -338,8 +348,7 @@ static void hardware_input_poll(void)
 /**** Standard entry points for Arduino system ******************/
 /****************************************************************/
 
-// Standard Arduino initialization function to configure the system.
-
+/// Standard Arduino initialization function to configure the system.
 void setup()
 {
   // initialize the Serial port
@@ -355,10 +364,9 @@ void setup()
 }
 
 /****************************************************************/
-// Standard Arduino polling function to handle all I/O and periodic processing.
-// This loop should never be allowed to stall or block so that all tasks can be
-// constantly serviced.
-
+/// Standard Arduino polling function to handle all I/O and periodic processing.
+/// This loop should never be allowed to stall or block so that all tasks can be
+/// constantly serviced.
 void loop()
 {
   serial_input_poll();
