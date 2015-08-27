@@ -44,14 +44,29 @@
 	motor drivers.  Please check the motor type; it should have a rated
 	voltage lower than your supply voltage.  These drivers control the
 	current by chopping the power supply, so the supply voltage can be
-	higher than the motor rating.  If the chosen supply voltage is less than
-	8V (e.g. 2.7V), you will need to use
+	higher than the motor rating.  If the chosen supply voltage is between
+	2.5-8V (e.g. 5V), you will need to use
 	the <a href="http://www.pololu.com/product/2134">low-voltage DRV8834
-	stepper motor driver</a>.  If the supply voltage is more than 8V
-	(e.g. 10-12V), you should use
+	stepper motor driver</a>.  If the supply voltage is between 8-35V
+	(e.g. 12V), you should use
 	the <a href="http://www.pololu.com/product/1182">A4988 stepper motor
 	driver</a>, which is a newer replacement for the
 	<a href="http://www.allegromicro.com/~/media/Files/Datasheets/A4983-Datasheet.ashx">A4983</a>.</li>
+
+      <li>You will need to set the current limiting potentiometer on the
+	driver to the correct level for the stepper motor you have chosen.  To
+	set it, you will need to use a thin piece of plastic or small
+	screwdriver to rotate the surface-mount potentiometer while measuring
+	the voltage at the wiper pin with a DMM.  The driver will need motor
+	power applied for this to work.  For the A4988, the voltage
+	is <span class="eqn">V<sub>ref</sub>=I<sub>limit</sub>/2.5</span>, for
+	the DRV8834 the voltage
+	is <span class="eqn">V<sub>ref</sub>=I<sub>limit</sub>/2.0</span>.
+
+	So for example, if using the NEMA14 SY35ST28-0504A stepper with
+	0.5A/Phase rating, with a A4988 the current limit reference voltage
+	should be 0.2V, and for the NEMA14 SY35ST36-1004A with a 1.0A/phase
+	rating, the voltage should be 0.4V.</li>
 
       <li>Load and run the KnobToStepper sketch from the course materials,
 	located in the same folder as this file if you have cloned the github distribution.  If not, it is
