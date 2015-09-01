@@ -9,19 +9,55 @@
     <h2>Exercise: Wireless with ESP8266</h2>
 <h4>Objective</h4>
 
-    <p>...</p>
+    <p>The ESP8266 is a very small, very cheap wifi module. It can be programmed directly, but we will use it with an arduino. These chips are very small, cheap, and will allow the arduino to make wifi connections, ping servers, connect to mobile devices, act as a web server, and so on. We will connect to an external webserver and return text from the page.</p>
 
     <h4>Steps and observations</h4>
+
+    <p>The ESP8266 is a finicky little chip, and care must be given to connect everything properly. The most important thing to note is that it operates at <strong>3.3v</strong>, not 5v. <em>Do not connect this chip to the 5v pin. It will probably break things.</em> The ESP chip is small, cheap, and does not contain failsafe logic. In other words, it will just fry.</p>
+
+    <p>After conneting the RX,TX,Ground, and VCC pins, it seems you are ready to begin - but there are some things about the ESP8266 that you will need to know.
+
+    <p>The first is that the CH_PD chip needs to be floated high. This means it needs to be connected - through a resitor (a 10k will do) - to a power supply. This allows the pin's signal to be '1' instead of '0'. The CH_PD pin is the "Chip Enabled" signal.</p>
+
+    <p>Next, the reset PIN also has an interesting operation. It is 1 for normal operation, and 0 for reset. We could float it high, just like the CH_PD chip - but then we wouldn't be able to reset our device. One option would be to wire it to a button that grounds the pin when pressed. We will connect it to a digital out pin on the arduino (pin 4, in our case). This lets us reset the ESP8266 in our software by changing the output of the pin. This will come in handy</p>
+
+    <p>We will need to install a custom library for this project. Read <a href="https://www.arduino.cc/en/Guide/Libraries">here</a> for more information on installing arduino libraries</p>
+
+    <p>Okay, let's get started</p>
+
     <ol>
-      <li>...</li>
+      <li>Connect Everything.
+        <ol>
+          <li>Connect the 3.3v and ground pins from the arduino to appropriate (+, -) rails on the breadboard. Use red wires for 3.3v and black wires for ground.</li>
+          <li>Connect the GND pin on the ESP8266 to the GND (-) rail on the breadboard</li>
+          <li>Connect the TX on the ESP8266 to pin 2, and the RX on the ESP8266 to pin 3 on the arduino.</li>
+          <li>Connect the RESET on the ESP to pin 4.</li>
+          <li>Connect the CH_PD pin to a node on the breadboard.</li>
+          <li>Connect a 10k resistor from the 3.3v rail on the breadboard to the same node as the CH_PD pin</li>
+          <li>Connect the VCC pin to the 3.3v rail on the breadboard.</li>
+        </ol>
+      </li>
+      <li>Download and install the Adafruit ESP8266 library from <a href="https://github.com/adafruit/Adafruit_ESP8266">this webpage</a> and install it. If you got these files from github, a copy of the library is in the same folder this file is.</a></li>
+      <li>Open the example code and read through it. Notice we can easily modify the pins we use to connect the board, the wifi SSD and password, and the webpage that the arduino will attempt to connect to.</li>
+      <li>Try changing the web page that gets fetched to 'http://www.arduino.hdyar.com', which I set up for this assignment.</li>
+      <li>Upload the project. Open the Serial Monitor. Use 57600 baud.</li>
+      <li>CMU's wifi networks use a security protocal that we cannot handle with the ESP8266. (Or at least, not without some serious hacking). Use a portable network from a phone, or use one of the macbooks and turn on internet sharing to create an network that the ESP can connect to.</li> 
     </ol>
 
     <h4>Comments</h4>
+    <p>When it comes to internet connected devices, there are many many reasons errors can occur - often without helpful fedback. This difficulty in debugging always been an issue with internet connected devices. Don't worry. Hang in there. Keep working at it. Be smart. Narrow down your potential issues systematically. I believe in you.</p>
+    <p>If you are seeing errors in your serial monitor that have to do with connection, relax! Things could be worse! You are sending data and reciving it from the esp8266, which is responding to the commands being sent and also is not on fire.</p>
 
-    <p>...</p>
+    <p>The Arduino UNO can operate at 3.3v output, but many other arduino's operated at 5v and needed a line converter to connect to the board at 3.3v.</p>
+
+    <p>The example code we used is very simple, just reading a simple plaintext web page. We could set up our own webpage with some web code that, say, displays tweets. We could output this to an LCD screen from the Arduino. Perhaps we could modify this webpage from a phone using technologies like JQuery (edit: wait, I mean node.js or php. The arduino wouldn't be able to process client side javascript). No need to even write mobile phone apps. Without complicating the arduino code much and just a little knowledge of web programming, we already are in a ready state for hacking away at projects. That said, there is still much more to be done. Programmers have turned these little devices into web servers and more. Check out ESP8266.com and go googling about projects for a host of information and ideas, and lots of open source code.</p>
+
+    <img src="ESP8266_connection.jpg" width="100%" alt="Diagram created in Fritzing by Smokey"/>
     <h4>Other Files</h4>
     <ol>
-      <li><a href="blink-motor.fzz">...</a><a href="blink-motor.sch"></a></li>
+      <li><a href="https://github.com/adafruit/Adafruit_ESP8266">Adafruit Library and Example code.</a></li>
+      <li><a href="http://www.esp8266.com/">esp8266.com has many resources about the ESP</a>
+      <li><a href="http://neilkolban.com/tech/wp-content/uploads/2015/08/The-ESP8266-Book-August-2015.pdf">An extensive eBook about the ESP8266</a>
     </ol>
   </body>
 </html>
