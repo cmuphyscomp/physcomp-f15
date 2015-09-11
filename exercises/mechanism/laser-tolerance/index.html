@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Laser Cutting Features and Tolerances</title>
+  </head>
+  <body>
+    <h2>Exercise: Laser Cutting Features and Tolerances</h2>
+
+    <p><b>Note: this is a new exercise, please  provide feedback on errors and clarity.</b></p>
+    
+    <h4>Objective</h4>
+
+    <p>Understand basic design considerations for laser-cut acrylic parts.
+      Learn to operate the laser cutter, measure features, and choose design
+      elements compatible with laser-cutting in acrylic.</p>
+
+    <h4>Process Overview</h4>
+    
+    <p>Laser cutters are extremely useful tools for cutting complex 2D forms.
+      Their best feature for our coursework is the speed with which an idea can
+      be tested: it is possible to conceive of a part, create a 2D drawing,
+      output a DXF, and cut material to make a functional part
+      within <i>minutes</i>.</p>
+
+    <p>Laser cutters are intrinsically two-dimensional tools: a focused beam of
+      infrared laser light (e.g. invisible to the human eye) moves on a XY
+      gantry under computer control to trace out curves and lines.  The beam is
+      turned on and off to start and end lines during cutting.  It may also be
+      used in a raster engraving mode in which it sweeps an area while
+      modulating the beam power very quickly to vary the cut and create an image
+      on the surface.</p>
+
+    <p>The fundamental cutting process is <b>melting</b> or <b>burning</b> from
+      the heat resulting from absorbing the energy of the light.  An air jet
+      blows downwards into the cut area to help move melted material out of the
+      cut before it resolidifies.  The cutter bed can be moved up or down prior
+      to cutting to place the top plane of the flat material at the focal point
+      of the laser.</p>
+
+    <h4>Design Overview</h4>    
+
+    <p>The cut file specifies the centerline for the laser path, but the width
+      of the <b>kerf</b> means that material will be cut on either side of the
+      beam path.  So an inside edge such as a hole will have a
+      slightly <b>larger</b> diameter than drawn and an outside edge will have a
+      slightly <b>smaller</b> width or diameter than drawn.  Any hole will 
+      be slightly <b>conical</b> since the cuts are slightly tapered top to
+      bottom.<p>
+
+    <p>The idea
+      of <a href="https://en.wikipedia.org/wiki/Engineering_tolerance">engineering
+	tolerance</a> has several different meaning in practice related to
+      choosing design parameters which can accommodate physical variations.  For
+      mass-produced parts, the variation can include dimensional imprecision
+      from part to part.  For parts subject to environmental changes, the
+      variation might be changes in dimension or material properties resulting
+      from thermal or humidity changes.  A robust design will include features
+      and parameter choices which can accommodate these variations to an
+      acceptable level.</p>
+    
+    <p>The laser-cutting process has several sources of variation: the cutter
+      itself changes calibration as the optics are dirtied and the laser ages,
+      the focal depth can be miscalibrated from pass to pass, the material
+      does not always have an exact thickness, and the XY drive mechanism has
+      backlash and positioning error.</p>
+
+    <h4>Tolerant Design Strategies</h4>
+
+    <p><b>Handwork</b>.  If parts are always cut slightly undersize, they can be
+      hand-filed and trimmed to fit.  This is labor-intensive and consistency is
+      difficult, although for a very simple part sometimes the fastest
+      solution.</p>
+    
+    <p><b>Iterative Adjustment</b>. The part design can be adapted to the
+      current process parameters by measuring a cut part and adjusting the
+      design file.  This can be time-consuming to iterate and is not
+      necessarily stable in the face of day-to-day variations.  It can however
+      lead to very precise parts, cut within the intrinsic mechanical
+      precision of the cutter.</p>
+
+    <p><b>Tolerant Design</b>.  The part can be designed to allow process
+      variation and still retain function.  This eliminates handwork at the cost
+      of more careful design.  However, it may also require reduced part
+      precision.  Techniques include: using tapered features, using fasteners,
+      adding extra alignment features, carefully choosing structural
+      topology./<p>
+
+      <h4>Exercise Details</h4>
+
+      
+    <p>For this exercise, we are providing sample laser-cuttable parts to
+    demonstrate a few techniques for building reliable structures out of
+    acrylic.  These are intended as starting points for your own designs. The
+    sources for these designs can be found in
+    the <a href="https://github.com/cmuphyscomp/physcomp-solidworks">physcomp-solidworks</a>
+    git repository on github.</p>
+      
+    <p>The Physical Computing Lab stocks several sizes of screws: M3, 2-56,
+      8-32, and 1/4-20.  We will use these as references for tolerancing.  Screws
+    have a nominal specified diameter, but all screws are slightly undersized
+      to guarantee a fit into a threaded hole.  The nominal diameters are as
+      follows:</p>
+
+    <!-- see pages 1715,1900 of Machinery's Handbook 26th Edition-->
+    
+    <p><table style="border: 1px solid black; margin-left: 0.5in;">
+      <tr><th>Thread</th>	<th>Nominal Diameter</th><th>Close Fit</th>	<th>Free Fit</th></tr>
+      <tr><td>2-56</td>		<td>0.086 inches</td>	<td>0.089 inches</td>	<td>0.096 inches</td></tr>
+      <tr><td>8-32</td>		<td>0.164 inches</td>	<td>0.1695 inches</td>	<td>0.177 inches</td></tr>
+      <tr><td>1/4-20</td>	<td>0.250 inches</td>	<td>0.257 inches</td>	<td>0.266 inches</td></tr>
+      <tr><td>M3</td>		<td>3.0 mm</td>		<td>3.15 mm</td>	<td>3.30 mm</td></tr>
+    </table></p>
+
+    <p>More of these parameters can be
+    found <a href="http://www.engineershandbook.com/Tables/taphole.htm">here</a>
+    or <a href="http://www.littlemachineshop.com/reference/tapdrillsizes.pdf">here</a>.</p>
+
+    <p>For this experiment, we will focus on cutting smaller holes to see at
+      what point we can achieve an <b>interference fit</b>.  Acrylic is
+      relatively brittle and not very conducive to tapping, but for light-duty
+      connections self-tapping with a normal screw can sometimes be enough to
+      secure a threaded fastener.</p>
+    
+    <h4>Steps and observations</h4>
+
+    <ol>
+      <li>Obtain samples of each of the four screws listed in the table above;
+      the length does not matter.</li>
+
+      <li>Obtain a set of digital calipers.  We stock <a href="http://www.amazon.com/Neiko-01407A-Extra-Large-SAE-Metric-Conversion/dp/B000GSLKIW/ref=sr_1_1?ie=UTF8&qid=1402253100&sr=8-1&keywords=calipers">Neiko 6-inch calipers</a> in the lab.</li>
+
+      <li>Measure and note the actual diameter of each screw.</li>
+
+      <li>Obtain several scraps of 3mm acrylic at least 50mm x 50mm.</li>
+
+      <li>Cut the plate with grid of holes found in laser_test_cutting_plan.dxf
+	using the laser cutter.  More detailed information and guides can be
+	found <a href="http://courses.ideate.cmu.edu/physcomp/f15/16-223/guide/laser_cutter.html">in
+	the 16-223 course notes.</a></li>
+
+      <li>Cut two copies of the plate with notches and tabs found in
+      laser_test_cutting_plan.dxf.</li>
+      
+      <li>Use the screws to probe each hole in the first example.  Which holes
+	are clearance, and which interfere? Can you observe the conical shape of
+	the hole?  Did every screw size work equally well?  Did some not cut
+	cleanly?</li>
+
+      <li>Can you confirm the diameter measurement using calipers? Can you
+	compare the top and bottom openings? Precisely measuring the inside
+	diameter of holes can be difficult with calipers; machine shops often
+	stock
+	calibrated <a href="https://en.wikipedia.org/wiki/Gauge_block#Gauge_pins">gauge
+	pins</a> for performing this type of inside diameter measurement.</li>
+
+      <li>If all the holes are too large, make a copy of the DXF file, adjust
+	the hole sizes slightly smaller, and recut the part.  For a one-time
+	adjustment, you can accomplish this directly in the laser cutter control
+	software.  On the cluster MacBook Pros, Adobe Illustrator is sometimes
+	the fastest tool for this; be sure to import and export the DXF at
+	1&nbsp;unit:1&nbsp;mm scale.  We also
+	recommend <a href="https://www.3ds.com/products-services/draftsight-cad-software/">DraftSight</a>,
+	a freely available 2D CAD tool.</li>
+
+      <li>Now examine one of the plates with notches and tabs.  Measure the
+	width and depth of the square notches and tabs; how close are they to
+	the design size?  How wide do you estimate is the kerf?  How well do the
+	square tabs of one copy fit into the square notches of the other?</li>
+
+      <li>Try fitting the wedge-shaped tabs into the square notches with the
+	plates positioned at right angles.  Can you find a position in which
+	they fit tightly?</li>
+    </ol>      
+
+    <h4>Comments</h4>
+
+    <p>If you want to create a box from laser-cut parts, a handy tool is
+    the <a href="http://boxmaker.connectionlab.org/">online BoxMaker
+    tool</a>. In the examples below is an automatically generated design for a
+    box with the following parameters: 50x50x50 mm dimensions, 3mm material
+      thickness, 0.1mm cut width.</p>
+
+    <p>Some more elaborate examples of slot and tab structures can be found in the
+      <a href="https://github.com/cmuphyscomp/physcomp-solidworks">physcomp-solidworks</a>
+      repository; see <tt>wedge_examples</tt> in particular.  Also, some
+      examples of joining plates for use with aluminum extrusion can be found
+      in <tt>spokes_example</tt>.</p>
+      
+    <h4>Other Files</h4>
+    
+    <ol>
+      <li><a href="laser_test_cutting_plan.DXF">DXF with cutting plan</a></li>
+      <li><a href="hole_size_test.PDF">Mechanical drawing of plate with holes</a></li>
+      <li><a href="notch_tab_test.PDF">Mechanical drawing of plate with notches and tabs</a></li>
+    </ol>
+
+    <img src="Neiko-calipers-metric.jpg" width="50%" />
+
+    <a href="hole_size_test.PDF"><img src="hole_size_test.PNG" width="100%" /></a>
+    
+    <a href="notch_tab_test.PDF"><img src="notch_tab_test.PNG" width="100%" /></a>
+    
+    <a href="laser_test_cutting_plan.DXF"><img src="laser_test_cutting_plan.PNG" width="100%" /></a>
+
+    <h4>BoxMaker 50x50x50 mm box</h4>
+    
+    <a href="boxmaker-50x50x50.pdf"><img src="boxmaker-50x50x50.png" width="100%" /></a>
+    
+  </body>
+</html>
