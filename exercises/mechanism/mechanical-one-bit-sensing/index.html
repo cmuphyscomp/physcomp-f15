@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Mechanisms for One-Bit Sensing</title>
+  </head>
+  <body>
+    <h2>Exercise: Mechanisms for One-Bit Sensing</h2>
+
+    <p><b>Note: this is a new exercise, please  provide feedback on errors and clarity.</b></p>
+
+    <h4>Objective</h4>
+
+    <p>Design and test a simple mechanical transmission which couples a mechanical
+      state of interest to a one-bit sensor such as a microswitch.</p>
+
+
+    <h4>Overview</h4>
+
+    <p>Simple two-state sensors are found throughout many machine designs.  They
+      are often the most efficient feedback solution in terms of cost,
+      complexity and robustness.  Essentially, they reduce the state of the
+      world down to one bit with carefully chosen semantics, the most
+      reductionist state model possible.  This was phrased elegantly in
+      <a href="http://www-formal.stanford.edu/jmc/little/little.html">a 1983
+      essay</a> by the
+      late <a href="https://en.wikipedia.org/wiki/John_McCarthy_%28computer_scientist%29">Professor
+      John McCarthy</a>:</p>
+
+    <blockquote>Keep in mind that the thermostat can only be properly
+      considered to have just three possible thoughts or beliefs. It may
+      believe that the room is too hot, or that it is too cold, or that it is
+      ok. It has no other beliefs; for example, it does not believe that it is
+      a thermostat.</blockquote>
+
+    <p>In actual practice, many furnace-only thermostats have only <i>two</i>
+      beliefs: it is too cold, or it is fine.</p>
+
+    <p>The key is arranging the physical design of the system to respond to
+      the world state in a bimodal way.  This exercise explores this idea in
+      practice through a simple limit switch arrangement.</p>
+
+    <h4>Exercise Details</h4>
+
+    <p>For this exercise, we are providing a sample design to explain the idea,
+      but we would like you to draw your own design from scratch.  However, the
+      sources for the design can be found in
+      the <a href="https://github.com/cmuphyscomp/physcomp-solidworks">physcomp-solidworks</a>
+      git repository on github.</p>
+
+    <p>A common use of switches in machine design is as a <i>limit switch</i>
+      which detects when a movement has reached one end of the acceptable limit
+      of travel.  This is a type of one-bit touch sensor which uses the fact
+      that the presence of an object pressing on the switch can have only one
+      meaning, namely, that the axis has traveled too far.  The same approach
+      applies to door switches, drawer switches, and through-beam limits: the
+      activation of the switch can have only one semantic meaning in the context
+      of the process, so it is useful as a one-bit sensor.<p>
+
+    <p>The example below is a simple lever extension of a microswitch with the
+      following features: the pivoting lever responds to an object brushing
+      past the curved end, the two limit-stop screws prevent the lever from
+      either damaging the switch or leaving the sensed region, and the switch
+      flag can be bent for fine-tuning the exact threshold.</p>
+
+    <h4>Steps and observations</h4>
+
+    <ol>
+      <li>Choose a simple mechanical process from which to sense a one-bit
+	state.  Some ideas: motor reaching a limit, door opening, person bumping
+	a table, hook catching a ring, weight exceeding a limit, etc.</li>
+
+      <li>Analyze the movement to determine what mechanical position could serve
+	as a threshold for the state of interest.</li>
+
+      <li>Design a simple mechanism to couple the movement to a binary sensor.
+	The example below can serve as a starting point.  A microswitch is a
+	good sensor for this test as it is cost-effective and power-efficient.
+	You may also use a magnet and Hall effect sensor or a photointerrupter
+	and flag if either are more suitable.</li>
+
+      <li>Be sure to include travel limits as necessary to keep the sensor
+	itself in a safe condition.</li>
+
+      <li>Test your mechanism.  Does it reliably trigger on the condition of
+	interest?  Can you find conditions which induce false positives or false
+	negatives?  How much did you expand the range of motion of the
+	sensor?</li>
+
+    </ol>
+
+    <h4>Comments</h4>
+
+    <p>This exercise actually understates the potential of one-bit sensors,
+      because the other available axis is <i>time</i>.  A one-bit sensor
+      activating over time can be viewed as a binary trajectory which can reveal
+      much about the underlying process via statistical analysis or machine
+      learning.</p>
+
+    <h4>Other Files</h4>
+
+    <ol>
+      <li><a href="switch_trigger_cutting_plan.DXF">DXF with sample cutting plan</a></li>
+    </ol>
+
+    <img src="switch_trigger.PNG" width="100%" />
+    <img src="switch_trigger_cutting_plan.PNG" width="100%" />
+
+  </body>
+</html>
