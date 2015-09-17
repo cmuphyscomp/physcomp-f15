@@ -8,7 +8,7 @@
   <body>
     <h2>Exercise: Getting Started on the Raspberry Pi</h2>
 <h4>Objective</h4>
- 
+
     <p>Learn basic usage of a Raspberry Pi: connecting to a laptop or monitor,
       running programs, updating the system.</p>
 
@@ -16,7 +16,7 @@
       materials:</p>
 
     <ol>
-      <li>Raspberry Pi B+</li>
+      <li>Raspberry Pi B+ or Raspberry Pi 2</li>
       <li>power supply cable (USB micro)</li>
       <li>microSD card containing course Raspbian image</li>
       <li>Pi Cobbler or T-Cobbler breakout board w/ribbon cable</li>
@@ -27,10 +27,17 @@
       <li>occasional use: powered speakers or earphones</li>
     </ol>
 
+    <p>If you have a blank microSD card (minimum 8G) onto which you would like
+      to load a Raspberry Pi operating system, we maintain several customized
+      images in a <a href="https://cmu.box.com/s/o08zhb7vt26bch2akklb">folder on
+      box.com accessible to the CMU community</a>.  Please see the README.txt
+      file for notes on the current versions and links to instructions for
+      writing the image file to a card.</p>
+
     <p>If using from a cluster laptop:</p>
     <ol>
       <li>short Ethernet cable</li>
-      <li>Thunderbolt to Ethernet adapter</li>
+      <li>Ethernet adapter (Thunderbolt or USB)</li>
     </ol>
 
     <p>If using with a monitor:</p>
@@ -43,12 +50,15 @@
     <h4>Overview</h4>
 
     <p>The <a href="http://www.raspberrypi.org/">Raspberry Pi</a> is a powerful
-      microcontroller which runs the Linux operating system.  We are using the
-      B+ version, which has 512&#160;Mb RAM and a 40-pin connector for hardware
-      I/O.  It boots from a microSD card which acts as its hard drive.  It is
-      about as powerful as a low-end cell phone, which puts it orders of
-      magnitude more complex than an Arduino, but much less capable than a
-      current laptop.</p>
+      microcontroller which runs the Linux operating system.  We have both two
+      versions which are very similar physically, but with different
+      computational power: the Raspberry Pi B+ with 512&#160;Mb RAM and a
+      single-core ARM Cortex-A6 CPU, and the newer Raspberry Pi 2 with
+      1024&#160;Mb RAM and a quad-core ARM Cortex-A7.  Both have a 40-pin
+      connector for hardware I/O.  A Raspberry Pi boots from a microSD card
+      which acts as its hard drive.  It is about as powerful as a low-end cell
+      phone, which puts it orders of magnitude more complex than an Arduino, but
+      much less capable than a current laptop.</p>
 
     <p>The Raspberry Pi is a vastly more powerful computer than the Arduino and
       has access to a vast array of Linux software, much of which is easily
@@ -130,14 +140,14 @@
       ways, this is more reliable than the Samba system, since there is no
       persistent connection.  Sftp is better for transferring individual files
       rather than nested folders.</p>
-    
+
     <p><b>Using rsync or unison.</b> These are programs which perform single- or
       bi-directional file synchronization between a laptop and the Pi, but which
       require some careful configuration.  These are suitable for nested folders
       and large sets of files.</p>
 
     <h4>Maintenance of the Pi</h4>
-    
+
     <p>The Linux system on the Pi is a complex infrastructure involving many
       parts which can be individually updated.  Your program is always one of
       many.</p>
@@ -168,6 +178,14 @@
       setting and set it to share from Wi-Fi to Thunderbolt Ethernet.  </li>
 
     </ol>
+
+    <p>This particular configuration takes advantage of the fact that OS X
+      defaults to assigning addresses in the 192.168.2.x subnet when using
+      Internet Sharing.  However, if you are using Windows or wish to use a
+      different setup, the network configuration of the Pi is stored in the
+      interfaces.txt file in a FAT32 partition on the microSD card.  This can be
+      changed as needed using a normal text editor when the card is attached to
+      a laptop.</p>
 
     <p>Attach power to the Pi and watch the lights flicker as it boots.  Try a
       command-line ssh connection from a Terminal window.  The Pi is
@@ -203,10 +221,10 @@
       dig</code> to read the manual page).</p>
 
     <p>If your Pi is able to connect to the internet, try running an update
-	with <code>sudo pi_update --course</code>.  That will update the
-	contents of the <code>/opt/cmuphyscomp/physcomp-examples/</code> folder
-	to the current course materials.  To run all available updates, you may
-	use <code>sudo pi_update</code>, but that can take a few minutes.</p>
+      with <code>sudo pi_update --course</code>.  That will update the contents
+      of the <code>/opt/cmuphyscomp/physcomp-f15/</code> folder to the current
+      course materials.  To run all available updates, you may use <code>sudo
+      pi_update</code>, but that can take a few minutes.</p>
 
     <p><b>Graphical operation using RDP.</b> If using a cluster laptop, launch
       "Remote Desktop Connection.app" and enter 192.168.2.3 for Computer.  You
@@ -234,8 +252,23 @@
       <code>1 Expand Filesystem</code> at the menu, followed by interface
       item <code>Finish</code>, then confirm an immediate reboot.</p>
 
+    <p><b>Enabling the Pi Camera or SPI ports.</b> The drivers for these devices
+      are not enabled by default.  To turn then on, run <code>sudo
+      raspi-config</code> and select either or both of
+      <code>5 Enable Camera</code> and
+      <code>8 Advanced Options</code> followed by <code>A6 SPI</code>.</p>
+
+    <p><b>Installing openFrameworks.</b>
+      The <a href="http://www.openframeworks.cc/">openFrameworks libraries</a>
+      are not included by default in the newer system images, but can be
+      downloaded and compiled directly on your Pi 2.  If you would like to work
+      with openFrameworks, a script is provided to build it in
+      /opt/openFrameworks by running
+      <code>sudo setup_openframeworks</code>.  It will take some time to run.</p>
+
     <p><b>Shutting down the Pi.</b> It is best to do a proper shutdown on the Pi
       rather than just unplugging it to avoid corrupting the memory card.  From
-      a command line enter <code>sudo shutdown -h now</code>.
-  </p>  </body>
+      a command line enter <code>sudo shutdown -h now</code>.</p>
+
+  </body>
 </html>
