@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Electromechanical Oscillation</title>
+  </head>
+  <body>
+    <h2>Exercise: Electromechanical Oscillation</h2>
+
+    <p><b>Note: this is a new exercise, please  provide feedback on errors and clarity.</b></p>
+
+    <h4>Objective</h4>
+
+    <p>Design and test a mechanical oscillator pumped via electrical actuation.</p>
+
+    <h4>Overview</h4>
+
+    <p>Physical oscillators are at the core of many machines: clocks, timers,
+      motors, pumps, quartz crystals, washing cycles, musical instruments, and
+      on and on.  Oscillations are a product of a physical process which cycles
+      through a set of states, with physical dynamics that determine the rate of
+      the process.  Practical oscillators lose energy over time to friction and
+      need a source of power which delivers energy in phase to maintain the
+      oscillation energy.</p>
+
+    <p>A few examples follow:</p>
+
+    <ol>
+      <li>A pendulum clock has a well-defined time constant based on the
+	gravitational constant, the length of the pendulum, and (weakly) the
+	magnitude of the motion.  Energy is added via an <i>escapement</i>
+	mechanism which applies force <i>in phase</i> with the pendulum swing.
+	The force is provided from a descending weight which stores
+	gravitational potential energy.</li>
+
+      <li>An electric motor has a <i>rotor</i> and <i>stator</i> with varying
+	magnetic fields which repel each other, precisely timed to apply torque
+	in phase with the rotation.  In a small DC motor, the stator holds
+	permanent magnets and the rotor has an electromagnet winding with
+	current controlled by <i>commutation brushes</i> which mechanically
+	switch the current direction as a function of angle.  The motor lacks
+	the single-frequency resonance of the pendulum; the rotational rate
+	emerge as a function of the voltage, applied load, friction, and the
+	intrinsic parameters.</li>
+
+    </ol>
+
+    <h4>Exercise Details</h4>
+
+    <p>Creating and controlling a mechanical oscillation involves creating a
+      device which incorporates a physical dynamic process and adding actuation
+      to provide energy at the right time.  The following exercise is framed in
+      abstract terms to allow for many possible outcomes.  But keep in mind that
+      this can be very simple: a simple pendulum activated by solenoid or motor
+      is perfectly fine.  And try to build as little as possible: a pendulum
+      device might comprise simply a solenoid and switch taped to a board and
+      wired together to a power supply to make a 'kicker', with a pendulum
+      formed by a weight on the end of a string.</p>
+
+    <h4>Steps and observations</h4>
+
+    <ol>
+      <li>Choose a mechanical process which either cycles periodically or can be
+	actuated to reset to an initial condition.  Some ideas: swinging
+	pendulum, 2D pendulum, ball rolling down track, mass rotating on a
+	torsion spring, ball bouncing on plate, ball descending through liquid,
+	water flowing between reservoirs.</li>
+
+      <li>Choose a relevant intermittent actuation which can add energy to the
+	process. Some ideas: a solenoid kicker, a winch or arm to reset object
+	position, pumps.</li>
+
+      <li>Choose a relevant state-based condition under which to activate the
+	actuation.  Some ideas: a particular object position, change of center
+	of mass, liquid level.  The key is that it is <i>not</i> based on time
+	so that the natural time constant of the mechanical process will govern
+	the oscillation rate.</li>
+
+      <li>Design and construct a simple mechanism to implement the oscillator.
+	Basic electronics are preferred but microcontrollers are permissible as
+	long as they are not serving as a time reference.</li>
+
+      <li>Test your mechanism.  What is the frequency? Is it stable? Is is
+	adjustable?  How slow or fast can it go?  Can it be dynamically
+	modulated?</li>
+    </ol>
+
+    <!-- <h4>Comments</h4> -->
+
+    <!-- <img src="pendulum.jpg" width="100%" /> -->
+
+  </body>
+</html>
