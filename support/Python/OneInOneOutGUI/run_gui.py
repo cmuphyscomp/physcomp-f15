@@ -21,7 +21,7 @@ from PyQt4 import QtGui
 # Make sure that the Python libraries also contained within this course package
 # are on the load path.  This adds the parent folder to the load path, assuming that this
 # script is still located within a subfolder of the Python library tree.
-sys.path.insert(0, os.path.abspath(".."))
+sys.path.insert(0, os.path.dirname(os.path.abspath(os.path.dirname(__file__))))
 
 # Import the custom GUI class.
 from OneInOneOutGUI.OneInOneOutGUI import OneInOneOutGUIController

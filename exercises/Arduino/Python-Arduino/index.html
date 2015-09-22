@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Python and Arduino</title>
+  </head>
+  <body>
+    <h2>Exercise: Python and Arduino</h2>
+<h4>Objective</h4>
+
+    <p>Communicate data between Python and an Arduino using the USB serial bus.</p>
+
+    <p>The Arduino IDE and Python solve different problems well.  The Arduino
+      has easy direct access to its hardware interface, and can create and
+      respond to electrical signals with very low latency.  Python is
+      well-suited to interactive programming, but the latency is considerable
+      higher than on a microcontroller, and on a laptop lacks access to hardware
+      interfaces.  This exercise will demonstrate one way of coordinating Python
+      and the Arduino to take advantage of the best features of each by linking
+      them using a simple ASCII message protocol over the USB serial bus.</p>
+
+    <p>The serial communication does introduce significant latency between the
+      Arduino and Python so this approach is strongest for systems in which
+      Python is used for tasks such as the GUI, visual display, sequencing, and
+      overall event control.  It would not be suitable for high-bandwidth tasks
+      such as cycling individual digital outputs to create a stepper motor
+      waveform.  However, the extensibility of the protocol means that you can
+      add those low-level hardware behaviors to the Arduino server program and
+      invoke them via messages.</p>
+
+    <p>Setting up the exercise requires a couple of preparatory steps:</p>
+
+    <ol>
+      <li>Compiling and loading the OneInOneOutASCII Arduino sketch onto an Arduino Uno.</li>
+      <li>Determining the exact name of the serial port offered by the Arduino over USB.</li>
+      <li>Running the OneInOneOutGUI module in Python on a laptop.</li>
+      <li>Verifying or setting the serial port name in the interface.</li>
+    </ol>
+
+    <p>The OneInOneOutASCII sketch is provided in the course distribution in the
+      folder named <code>support/Arduino/OneInOneOutASCII</code>.  If you have not cloned the
+      course materials from github, you
+      can <a href="http://cmuphyscomp.github.io/physcomp-examples/support/Arduino/OneInOneOutASCII/OneInOneOutASCII.ino">download
+      it directly from github</a>.  The source code of the sketch provides
+      details of the messaging scheme</p>
+
+    <p>The Python patch is also available in the course distribution in the
+      folder named <code>support/Python/OneInOneOutGUI</code>.  This also
+      requires the supporting library from <code>support/Python/ArduinoGUI</code>.
+      Because of the number of files involved, it is <b>highly recommended</b>
+      that you clone the github repository to download them to your laptop.</p>
+
+    <p>N.B. the cluster laptops include a MacPorts installation of Python which
+      already includes the following required libraries: py27-numpy, py27-pyqt4,
+      py27-pyqwt, and py27-serial.</p>
+
+    </p><h4>Steps and observations</h4>
+
+    <ol>
+      <li>Upload the OneInOneOutASCII sketch onto an Arduino Uno.  </li>
+
+      <li>Open the Serial Monitor, set the baud rate to 115200 and the line
+	ending to Newline.  You should see data messages start to stream
+	by.</li>
+
+      <li>Enter 'poll 1000' in the input box and press enter.  The message rate should slow.</li>
+      <li>Enter 'led 0' in the input box and press enter.  The LED marked L should go off.</li>
+      <li>Enter 'led 1' in the input box and press enter.  The LED marked L should go on again.</li>
+      <li>Note the exact serial port name from the Tools/Port menu in the Arduino IDE.</li>
+      <li>Exit the Arduino IDE.</li>
+
+      <li>The easiest way to run the Python GUI client from OS&nbsp;X is to
+	double-click on the <code>run_gui.command</code> script found within the
+	OneInOneOutGUI folder. However, in the long run it is more versatile to
+	run it from the command line (or necessary if you are using Windows or a
+	Raspberry Pi).  If you are using a cluster Mac the command
+	is <code>python2.7 run_gui.py</code>.  This will use our MacPorts
+	installation of Python which includes the required libraries instead of
+	the system-provided Python.  On a Raspberry Pi use <code>python
+	run_gui.py</code>.  On Windows the exact command will depend on which
+	Python distribution you are using.</li>
+
+      <li>Near the bottom of the panel is a text field labeled Arduino Port.  If
+	that doesn't match the name of the serial device you noted before,
+	please correct it.  Then toggle the Connected button to open the Arduino
+	serial port.  If you toggle the Show Raw Data button, you should see a
+	stream of messages in the text area similar to those you saw before from
+	the Arduino IDE.</li>
+
+      <li>Try the LED On and LED Off buttons and observe the Arduino LED.  On
+	each press you should also see the RX LED flash briefly as the message
+	is received on the Arduino.</li>
+
+      <li>The plot at the top labeled ArduinoScope shows the stream of readings
+	from the A0 analog input.  If the input is disconnected, this will just
+	be electrical noise.  Try touching the A0 pin from the back of the
+	Arduino board; you should see a change in the plot from the electrical
+	noise conducted by your skin.
+      </li>
+
+      <li>The Command Input text field allows manually sending commands much as
+      you did with the Arduino IDE.</li>
+
+    </ol>
+
+    <h4>Comments</h4>
+
+    <p>This particular Arduino IDE sketch is going to serve as the basis for all
+      the following exercises in which we connect hardware to the Arduino and
+      control it from Python.</p>
+
+    <p>For a challenge, examine the source code for both the sketch and the
+      GUI and work out how to add additional message types.</p>
+
+    <h4>Other Files</h4>
+    <ol>
+      <li><a href="../../../support/Arduino/OneInOneOutASCII/">OneInOneOutASCII folder with Arduino server</a></li>
+      <li><a href="../../../support/Python/OneInOneOutGUI/">OneInOneOutGUI folder with Python client</a></li>
+    </ol>
+
+    <img src="OneInOneOutGUI-screenshot.png" width="100%" />
+
+  </body>
+</html>
