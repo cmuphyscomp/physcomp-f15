@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Music Sequencer</title>
+  </head>
+  <body>
+    <h2>Exercise: Music Sequencer</h2>
+
+    <p><b>Note: this is a new exercise, please provide feedback on errors and clarity.</b></p>
+
+    <h4>Objective</h4>
+
+    <p>Generate tone patterns over time from a string representation of a melody.</p>
+
+    <p>Many physical systems require generating patterns of control outputs over
+      time.  For example, a dishwasher or washing machine controller is
+      primarily a clock which times the phases of spraying or agitation.  There
+      is some sensor feedback for process transitions based on physical state
+      (e.g. the water level reaching a threshold), but much of the process is
+      simply timed.</p>
+
+    <p>Performance machines, especially musical ones, also frequently utilize
+      timed sequences.  It is also convenient for these machines to have a
+      representation of the pattern which can easily be used for authoring and
+      editing the performances.</p>
+
+    <p>This exercise introduces a very simple pattern language which represents
+      a rhythmic tone pattern as a fixed string of text.  The pattern string is
+      <em>interpreted</em> by the program.  This data-driven approach allows
+      more compact representation than the equivalent code sequence.  It also
+      integrates much more easily alongside simultaneous processes such as
+      sensor data acquisition.</p>
+
+    <h4>Steps and observations</h4>
+    <ol>
+
+      <li>Load and run the
+	included <a href="MusicSequenceDemo/MusicSequenceDemo.ino">MusicSequenceDemo
+	sketch</a>.  The example program generates audio-frequency square waves
+	tone with different rhythms and pitches on pins 4 and 5.  This
+	demonstrates an event-loop and rhythm pattern control structure allowing
+	parallel execution of multiple timed tasks.</li>
+
+      <li>Observe the initial outputs on an oscilloscope.</li>
+
+      <li>Design and construct an Arduino circuit incorporating two audio
+	speakers for digital output.  The speakers can be driven by digital
+	outputs using a ULN2803 attached to the output pins defined in the sample
+	sketch.  The speaker drive circuit can use the same structure as the
+	previous ULN2303 exercise, replacing the LED with the speaker.  A small
+	speaker is typically about 8&#160;ohms and can handle a fraction of a
+	Watt; assuming 1/8&#160;Watt, the power supply voltage would be
+	typically be about a volt above the ULN2803 forward drop, so start with
+	a power supply voltage of 1.6V and experiment.</li>
+
+      <li>Modify the rhythm pattern string to generate a different beat
+	pattern or melody.</li>
+
+    </ol>
+
+    <h4>Comments</h4>
+
+    <p>This exercise uses a C++ class named MelodyGenerator to implement the
+      tone and rhythm pattern generator.  This was written as one class for
+      simplicity, but logically might be broken out into separate ToneGenerator
+      and PatternGenerator classes.  This class was also incorporated directly
+      into the sketch but would more conventionally be provided in separate
+      files as a generic re-usable component.</p>
+
+    <h4>Challenges</h4>
+
+    <ol>
+      <li>Add a sensor acquisition process to read an external input and modulate the performance.</li>
+      <li>Extend the pattern language to include more tones.</li>
+      <li>Extend the timing control to include articulation (short silences) to define boundaries of repeated notes.</li>
+      <li>Extend the timing control to vary the pulse width to control tone volume.</li>
+      <li>Rewrite the MelodyGenerator class into generic ToneGenerator and PatternGenerator classes.</li>
+      <li>Add a phase-lock algorithm to beat-match to an external sensor input.</li>
+    </ol>
+
+    <h4>Sub-Folders</h4>
+    <ol>
+      <li><a href="MusicSequenceDemo/index.html">MusicSequenceDemo</a></li>
+    </ol>
+  </body>
+</html>
