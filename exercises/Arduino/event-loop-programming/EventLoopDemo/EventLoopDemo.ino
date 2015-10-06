@@ -12,7 +12,7 @@ const int outputPin2 = 5;
 
 /****************************************************************/
 // This function is called once after reset to initialize the program.
-void setup() 
+void setup()
 {
   // Initialize the digital output pins to output drive mode.
   pinMode( outputPin1, OUTPUT );
@@ -34,26 +34,37 @@ int output_state_2 = LOW;           // current state of output 2
 // This function is called repeatedly as fast as possible from within the
 // built-in library to poll program events.
 
-void loop() 
+void loop()
 {
-  long now = micros();   // read the current time in microseconds
+  // read the current time in microseconds
+  long now = micros();
 
-  // polled task 1 for output 1
-  if (now > next_output_time_1) {                    // if the time has expired
-    next_output_time_1 = now + output_interval_1;    // reset the timer for the next polling point
+  // Polled task 1 for output 1.  Check if the next_output_time_1 timestamp has
+  // been reached; if so then update the output 1 state.
+  if (now > next_output_time_1) {
 
-    // update output 1, e.g. toggle it
-    if (output_state_1 == LOW) output_state_1 = HIGH; else output_state_1 = LOW;
+    // reset the timer for the next polling point
+    next_output_time_1 = now + output_interval_1;
+
+    // toggle the output_state_1 variable
+    output_state_1 = !output_state_1;
+
+    // update output pin 1 with the new value
     digitalWrite( outputPin1, output_state_1 );
-  }      
+  }
 
-  // polled task 2 for output 2
-  if (now > next_output_time_2) {                    // if the time has expired
-    next_output_time_2 = now + output_interval_2;    // reset the timer for the next polling point
+  // Polled task 2 for output 2.  Check if the next_output_time_2 timestamp has
+  // been reached; if so then update the output 2 state.
+  if (now > next_output_time_2) {
 
-    // update output 2, e.g. toggle it
-    if (output_state_2 == LOW) output_state_2 = HIGH; else output_state_2 = LOW;
+    // reset the timer for the next polling point
+    next_output_time_2 = now + output_interval_2;
+
+    // toggle the output_state_2 variable
+    output_state_2 = !output_state_2;
+
+    // update output pin 2 with the new value
     digitalWrite( outputPin2, output_state_2 );
-  }      
+  }
 }
 /****************************************************************/

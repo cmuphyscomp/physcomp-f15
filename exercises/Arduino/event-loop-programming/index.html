@@ -55,22 +55,38 @@
       int output_state_1 = LOW;           // current state of output 1
       int output_state_2 = LOW;           // current state of output 2
 
-      void loop() {
-        long now = micros();   // read the current time in microseconds
+      void loop()
+      {
+        // read the current time in microseconds
+        long now = micros();
 
-        if (now &gt; next_output_time_1) {     // if the time has expired
-          next_output_time_1 = now + output_interval_1;    // reset the timer for the next polling point
-          // update output 1, e.g. toggle it
-          if (output_state_1 == LOW) output_state_1 = HIGH; else output_state_1 = LOW;
+        // Polled task 1 for output 1.  Check if the next_output_time_1 timestamp has
+        // been reached; if so then update the output 1 state.
+        if (now > next_output_time_1) {
+
+          // reset the timer for the next polling point
+          next_output_time_1 = now + output_interval_1;
+
+          // toggle the output_state_1 variable
+          output_state_1 = !output_state_1;
+
+          // update output pin 1 with the new value
           digitalWrite( outputPin1, output_state_1 );
-        }      
+        }
 
-        if (now &gt; next_output_time_2) {     // if the time has expired
-          next_output_time_2 = now + output_interval_2;    // reset the timer for the next polling point
-          // update output 2, e.g. toggle it
-          if (output_state_2 == LOW) output_state_2 = HIGH; else output_state_2 = LOW;
+        // Polled task 2 for output 2.  Check if the next_output_time_2 timestamp has
+        // been reached; if so then update the output 2 state.
+        if (now > next_output_time_2) {
+
+          // reset the timer for the next polling point
+          next_output_time_2 = now + output_interval_2;
+
+          // toggle the output_state_2 variable
+          output_state_2 = !output_state_2;
+
+          // update output pin 2 with the new value
           digitalWrite( outputPin2, output_state_2 );
-        }      
+        }
       }
     </pre>
 
@@ -100,7 +116,7 @@
 	experiment.</li>
 
       <li>Add an additional timed task to read the potentiometer at a slower rate.</li>
-      
+
       <li>Add a simple linear mapping to update the output frequencies based on
       the potentiometer input value, i.e., map the analog input to the output
       intervals.</li>
