@@ -1,0 +1,29 @@
+
+digraph input_matching {
+	node [fontsize=10]
+	edge [fontsize=8]
+	dpi="72"
+	size="7,7!"
+	
+	// declare all nodes
+	START [ label = "START\nLED is OFF" ]
+	STATE1 [ label = "STATE1\nLED is OFF" ]
+	STATE2 [ label = "STATE2\nLED is OFF" ]
+	STATE3 [ label = "STATE3\nLED is ON" ]
+
+
+	// declare all edges with labels
+	START -> STATE1   [ label = "input is HIGH" ]
+	START -> START    [ label = "input is LOW" ]  
+
+	STATE1 -> START   [ label = "input is HIGH" ] 
+	STATE1 -> STATE2  [ label = "input is LOW" ]  
+
+	STATE2 -> STATE3  [ label = "input is HIGH" ] 
+	STATE2 -> STATE1  [ label = "input is LOW" ]  
+	
+	STATE3 -> STATE3  [ label = "input is HIGH" ] 
+	STATE3 -> START	  [ label = "input is LOW" ]  
+	
+	label = "InputMatcher\nState Transition Diagram\n(All transitions take finite time.)"
+}
