@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Input Hysteresis</title>
+  </head>
+  <body>
+    <h2>Exercise: Input Hysteresis</h2>
+
+    <p><b>Note: this is a new exercise, please provide feedback on errors and clarity.</b></p>
+    
+    <h4>Objective</h4>
+
+    <p>Understand the application of a single state variable to
+      produce <a href="https://en.wikipedia.org/wiki/Hysteresis"><i>hysteresis</i></a>,
+      the time-based dependence of a system's output on present <b>and past</b>
+      inputs.</p>
+
+    <p>Hysteresis arises in a process when internal state causes the output
+      response to vary based on the history of the input.  It can be a useful
+      property to engineer into systems involving thresholds in order to avoid
+      unwanted ambiguous behavior.  For example, a thermostat typically turns on
+      when the temperature drops somewhat below the target and keeps the furnace
+      running until the temperature is somewhat above the target.  This keeps
+      the furnace from cycling on and off too rapidly.</p>
+
+    <p>However, the phenomenon can also interfere with control of mechanical
+      systems.  Most mechanical transmissions exhibit some degree
+      of <a href="https://en.wikipedia.org/wiki/Backlash_%28engineering%29"><i>backlash</i></a>,
+      e.g. the slight gap between gear teeth, for which changing the direction
+      of torque causes the contact to be lost and zero torque to be transmitted
+      for a short displacement until load contact is re-established.  The extra
+      state variable is the relative position of the parts, which are ideally
+      intended to have a fixed relationship.  This can lead to motor chatter
+      when trying to control an exact position with both positive and negative
+      torques.</p>
+
+    <p>This example presents a simple light-responsive system which incorporates
+      hysteresis.  This might be a model for the behavior of a light-sensitive
+      streetlight to allow it to turn off at dusk without oscillating in
+      response to its own illumination.</p>
+
+    <h4>State Transition Graph</h4>
+
+    <p>This graph represents a set of discrete states modelled by the system.
+      States are illustrated as ovals and transitions as arrows.  Each state can
+      have an associated output, in this case the LED.  Transitions between
+      states are defined by condition rules.  There is no representation of time
+      in this graph; transitions are assumed to trigger instantaneously.</p>
+
+    
+    <img src="input_hysteresis_state_transition_diagram.png" />
+    
+    <h4>Steps and observations</h4>
+    
+    <ol>
+      <li>Set up an Arduino UNO with a photoresistor between +5V and A0 and a
+	4.7K resistor between A0 and GND, e.g. a basic voltage divider to sense
+	a varying light level using A0.  Check with a DMM that the A0 voltage
+	varies over a wide range with changes in light level.  You may need to
+	choose a different fixed resistor depending on your specific
+	photoresistor.</li>
+
+      <li>Upload the InputHysteresis program found in this folder.</li>
+
+      <li>Open the Serial Console and set to 115200 baud.</li>
+
+      <li>Observe the console messages and the onboard LED.  Can you observe the
+	correct shadow and light levels to transition from off to on and back
+	again?  If it fails to transition, check that the A0 voltage is varying
+	widely enough; you may need to adjust the values for light_threshold and
+	dark_threshold.</li>
+
+      <li>Compare the code against the state transition diagram shown above.</li>
+    </ol>
+
+    <h4>Comments</h4>
+
+    <p>You may now recognize that the switch debouncing code introduced much
+      earlier is a specific case of a finite-state machine implementing
+      time-based hysteresis.</p>
+
+    <h4>Optional Challenge</h4>
+
+    <p>Can you introduce time measurements into the state graph?  Adding
+      intermediate wait states conditioned on elapsed time would be another way to
+      improve the hysteresis.</p>
+    
+    <h4>Sub-Folders</h4>
+    <ol>
+      <li><a href="InputHysteresis">InputHysteresis</a></li>
+    </ol>
+  </body>
+</html>

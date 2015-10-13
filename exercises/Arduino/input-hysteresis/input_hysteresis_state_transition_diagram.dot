@@ -1,0 +1,20 @@
+
+// To compile:
+// dot -T png input_hysteresis_state_transition_diagram.dot -o input_hysteresis_state_transition_diagram.png
+
+digraph input_hysteresis {
+	node [fontsize=10]
+	edge [fontsize=8]
+	dpi="72"
+	size="5,5!"
+	
+	// declare all nodes
+	WAITING_FOR_LIGHT [ label = "state WAITING_FOR_LIGHT\nLED is ON\n(world is perceived to be dark)", color="blue" ]
+	WAITING_FOR_DARK  [ label = "state WAITING_FOR_DARK\nLED is OFF\n(world is perceived to be light)", color="#00ffff" ]
+
+	// declare all edges with labels
+	WAITING_FOR_DARK -> WAITING_FOR_LIGHT [ label = "transition rule:\nlight input < dark_threshold" ]
+	WAITING_FOR_LIGHT -> WAITING_FOR_DARK [ label = "transition rule:\nlight input > light_threshold" ]
+
+	label = "InputHysteresis\nState Transition Diagram"
+}
