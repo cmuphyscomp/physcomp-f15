@@ -3,25 +3,46 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
-    <title>Exercise: Wireless with ESP8266</title>
+    <title>Exercise: Wireless with NRF24L01</title>
   </head>
   <body>
-    <h2>Exercise: Wireless with ESP8266</h2>
+    <h2>Exercise: Wireless with NRF24L01</h2>
 <h4>Objective</h4>
 
-    <p>...</p>
+    <p>The Nordic NRF24L01 is a small and extremely inexpensive wireless chip. The arduino is able to communicate with the chip thanks to several open source libraries, and the chips do an excellent job communicating with each other over. According to <a href="https://www.nordicsemi.com/eng/Products/2.4GHz-RF/nRF24L01">Nordic's produt page</a>: "The nRF24L01 is a highly integrated, ultra low power (ULP) 2Mbps RF transceiver IC for the 2.4GHz ISM (Industrial, Scientific and Medical) band".</p>
+
+    <p>THe NRF has many possible uses, especially thanks to it's low cost. Libries to use the chip as a mesh network exist, although most of the projects for this course will probably involve direct communication between 2 chips. We are going to run a simple Ping Pong sketch from one of the libraries. With this, we have a communication platform between 2 ARduino's that are ready to communicate for whatever we would like them to do.</p>
 
     <h4>Steps and observations</h4>
-    <ol>
-      <li>...</li>
-    </ol>
+
+    <h4>Hardware Setup</h4>
+    <p>The hardware is simple - the NRF can communicate with an Arduino over <a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">MISO/MOSI</a>. MISO: Master In, Slave Out. and MOSI. Master Out, Slave In. The arduino will be MOSI and the NRF will be MISO. Let's take a look at the NRF8266 diagram:</p>
+    <img src="diagram.jpg" />
+    <p>The only pins on the NRF that we care about are 1,2,6,7. This is pins Ground, VCC, MOSI and MISO. Connect the ground to arduino's ground, VCC to th3 3.3v reading (we know this from the <a href="nrf-datasheet.pdf">data sheet</a>). Connect MOSI to pin 11 and MISO to pin 12. Use a breadboard (try bending large female header pins and connecting the NRF accross the center of a breadboard), or just directly connect them with jumper wires.</p>
+
+    <h4>Software Setup</h4>
+    <p>Lucky for us, all of the difficult parts of using the NRF chip are handled by <a href="https://github.com/tmrh20/RF24">this RF24 library</a>. After downloading (github -> Download as zip) and <a href="https://www.arduino.cc/en/Guide/Libraries#toc2"installing</a> the library, you should be ready to hack away on the software side. The only tricky bit is using 2 arduino's with one laptop at a time can be frustrating, and - thanks to IDEATE lending - it's easy to just grab another laptop. I highly recommend this.</p>
+
+    <p>Let's run the RF24 Library's GettingStarted_HandlingData sketch. Upload the sketch to both arduino's. A few notes on the sketch: the 'radioNumber' bool needs to be a unique 0 or 1 - one NRF is 0, the other would be 1. Next, in the "RF24 Radio(11,12); line, pin 11 is the one connecting to the "MOSI" pin on the NRF, and the later argument, pin 12, connectes to the "MISO" pin on the NRF. Finally, the code executes the NRF into 'listening' mode by default, actually switching to the sending data mode (and listening for the response) needs to be done from the Serial Monitor. Don't get confused by all the 'got_time' variables - the code is sending timestamps as it's data, and using that to calculate the time it took for the signal to make a round-trip.</p>
+
+    <p>Now that you have this GettingStarted sketch going, be sure to try some of the other example sketches in the library. Read through the, and see how the NRF communicates - particularly the IRQ_Simple and Transfer examples. Most of the time, one chip will be in a sender position, which is excellent for many products.</p>s
 
     <h4>Comments</h4>
+    <p>Be wary of debugging. The RF24 library example code does not have particularly useful error messages. Be sure to check that everything is connected properly if it seems the devices arn't communicating with each other well. Also, be wary of signals 'crossing streams' if multiple students in a class are working on these at the same time - it's a simple fix to make in the software, but something to be aware of.</p>
 
-    <p>...</p>
+
     <h4>Other Files</h4>
     <ol>
-      <li><a href="blink-motor.fzz">...</a><a href="blink-motor.sch"></a></li>
+      <li><a href="http://yourduino.com/docs/nRF24L01_Product_Specification_v2_0%20.pdf">NRF data sheet</a></li>
     </ol>
+    <h4>Resources</h4>
+    <ol>
+      <li><a href="http://playground.arduino.cc/InterfacingWithHardware/Nrf24L01">Arduino Reference, links to various libraries</a></li>
+      <li><a href="https://tmrh20.github.io/RF24/">NRF optimized library documentation</a></li> 
+      <li><a href="https://www.youtube.com/watch?v=hI4JGDB7WtU">YouTube video explaining the chip with arduino</a></li>
+      <li><a href="http://hack.lenotta.com/arduino-nrf24l01-modules-testing/">Blog post hacking it. Has pinout diagrams</a></li>
+      <li><a href="https://en.wikipedia.org/wiki/Serial_Peripheral_Interface_Bus">Wikipedia page on MISO</a>
+
+
   </body>
 </html>

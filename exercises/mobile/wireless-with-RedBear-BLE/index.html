@@ -3,25 +3,45 @@
   <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
-    <title>Exercise: Wireless with ESP8266</title>
+    <title>Exercise: Wireless with RedBear BLE</title>
   </head>
   <body>
-    <h2>Exercise: Wireless with ESP8266</h2>
+    <h2>Exercise: Wireless with the RedBear BLE</h2>
 <h4>Objective</h4>
 
-    <p>...</p>
+    <p>Communicate between the Arduino and the RedBear BLE board, and communicate to a mobile device using bluetooth.</p><p>Through additional mobile development, one would hope to be able to use a phone as a sensor platform, providing an arduino access to the sensors (gyroscopic, compass, ambient light, microphone, etc) that mobile phones all have.</p>
+
+  <p>Bluetooth is a technology for wireless communication between devices. BLE stands for Bluetooth Low Energy (sometimes branded as Bluetooth Smart), a network technology designed to improve on bluetooth 'classic' in a variety of ways, including significantly lower engergy use. This has enabled Bluetooth technology to be used in passive devices, such as a fitness tracker.</p>
+
+  <p> We will use the <a href="http://redbearlab.com/blemini/">RedBear BLE mini board</a>, and a mobile app that RedBear has developed for testing purposes.</a>
+
 
     <h4>Steps and observations</h4>
     <ol>
-      <li>...</li>
+      <li>Install RedBear's RBL Library. Read about installing Arduino Libraries <a href="https://www.arduino.cc/en/Guide/Libraries">here</a> and the latest RedBear library can be downloaded <a href="http://redbearlab.com/rbl_library">here</a>.</li>
+      <li>With a breadboard, connect the RedBear BLE Mini to the arduino.
+        <ul>
+          <li>VIN -> 5v</li>
+          <li>GND -> GND</li>
+          <li>TX -> Default RX (pin 0)</li>
+          <li>RX -> Default TX (pin 1)</li>
+        </ul>
+        The green LED on the BLE mini should light up. Take note that RX on arduino goes to TX on the module. TX is transmit, and RX is recieve. 
+      </li>
+      <li>Install the BLE Controller app from RedBearLabs for your mobile device. <a href="http://redbearlab.com/app/android">Android link</a>. <a href="http://redbearlab.com/app/ios">iOS Link</a>. Turn on Bluetooth for your mobile device.</li>
+      <li>Upload the BLEController sketch from File > Examples > RBL_BLEMini. You may need to install another Arduino IDE library, available <a href="https://www.pjrc.com/teensy/td_libs_AltSoftSerial.html">here</a>.</li>
+      <li>Open the BLE Controller app and select 'BLE Controller' from the side menu. Scan for the BLE mini from the app (not from the bluetooth settings), and select your BLE Mini device.</li>
+      <li>Pin 13 is connected to an LED on the Arduino UNO. With the app, set Pin 13 to an output. Try turning on and off the LED from your phone.</li>
+      <li>Wire a Potentiometer up to an Anologue input on the Ardiono. Connect the outer pins of the potentiometer to 5V and Ground. Use the same breadboard nodes as the bluetooth connector. Connect the middle pin to the A5 input. A5 is also pin 19. (A0 is also pin 14). With the app, select Analog for pin 19. Watch the value change as you rotate the potentiometer.
     </ol>
 
     <h4>Comments</h4>
 
-    <p>...</p>
+    <p>One can get the arduino to access the campus wifi by registering the device here: <a href="https://netreg.net.cmu.edu/">https://netreg.net.cmu.edu/</a>. <em>I wil update this with further instructions once I figure out how to get the ESP2688 to spit out it's MAC address. One could find it through a variety of external means (router login pages, rooted android phones as hotspots), but ideally we can just ask the device to tell us.</em></p>
     <h4>Other Files</h4>
     <ol>
-      <li><a href="blink-motor.fzz">...</a><a href="blink-motor.sch"></a></li>
+      <li><a href="RBL_Library_v2.0.1.zip">RBL Library v.2.0.1 as a ZIP</a></li>
+      <li><a href="http://redbearlab.com/rbl_library">Direct Download of RedBear Library from redbearlab.com</a>
     </ol>
   </body>
 </html>
