@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" type="text/css" href="../../../support/css/physcomp.css" />
+    <title>Exercise: Wireless with the Particle Photon</title>
+  </head>
+  <body>
+    <h2>Exercise: Wireless with Particle Photon</h2>
+  <h4>About the Photon</h4>
+
+    <p>The Particle Photon is a "A tiny Wi-Fi development kit for prototyping your IoT product. Reprogrammable and connected to the cloud." It costs $20, making it one of the more expensive wireless chip solutions we have available to us. For the cost, we get ourselves access to, basically, a minature breadboard friendly arduino-like platform for <del>creating</del> Prototyping IoT devices. </p>
+
+    <p>Particle wants us to play nice with it's own dedicated interface - it's own IDE - for programming with the photon. A web based portal. Interfacing with the device was designed to be as easy as possible, which is great for us. This guide will not walk you through getting started so much as dealing with getting the device connected initially - a trivial task with traditional networks, but difficult under CMU's network. Then we will make a simple program to test the device out. Once we are connected, it's much the same as an arduino for hacking together IoT devices.</p>
+
+    <h4>Getting Started</h4>
+
+    <p><em>Note, If you want to just use a wifi hotspot and not use the CMU legacy network, you can skip much of this guide. Read the <a href="https://docs.particle.io/guide/getting-started/intro/photon/">guide</a> that particle provides, which is detailed. You can also set the device up from your phone (not running the hotspot). <a href="https://play.google.com/store/apps/details?id=io.particle.android.app">Here</a> is the app</em></p>
+
+    <p>First, let's manage to connect to the device over USB. We'll need this to interface with the photon directly, which lets us get the MAC address and (except for the portable hotpost) we won't need to use our phones. Particle has a bit of software build on Node.js. Go ahead and <a href="https://nodejs.org/en/">install node.js</a>. Open your <a href="http://www.switchingtomac.com/tutorials/osx/how-to-open-terminal-in-os-x/">terminal</a> and type in "npm help" then hit enter. Words that are not an error should appear. If this happens, you installed node! Yay!</p>
+
+    <p>NPM is a package manager that comes with node, which is platform for software - there are lots of cool pieces of software that run on node, and you should check them out - particularly if you like web development. A package manager (npm: "Node Package Manager") is a bit of software that makes installing software super easy. To install the software that will communicate with the photon, type in "npm install particle-cli" in the terminal and hit enter. If this returns errors, try "sudo npm install particle-cli", which will do the same command with administrative permissions.</p>
+
+    <h4>Breaking it down</h4>
+
+    <p>Okay, here is the process: 
+      <ol>
+        <li>Setup and connect the particle to a temporary wifi hotspot (using a smartphone or second laptop</li>
+        <li>Update the particles firmware over the cloud. </li>
+        <li>With the updated firmware and usb connection, use the a serial connection to get the MAC address of the Photon.</li>
+        <li>Register the MAC address with the legacy campus WIFI (and our laptop or phone, while we are at it)</li>
+        <li>Wait half an hour for the cmapus wifi to register the device.</li>
+        <li>Connect the photon to the campus internet!<li>
+
+    <p>Now we can type in "particle setup" in the terminal to get started. First, we need to create a wireless hotspot that can connect our device to the internet. Then, follow along the steps to get the particle connected to this wifi hotspot. It may take a few tries. Let it download the firmware update (and flash magenta). We need this update in order to get the MAC address.</p>
+
+    <p>Okay, if you are comfortable using a wifi hotspot, you can stop here and skip ahead. If you want to get the device on the capus wifi, lets keep trucking. We need to put the photon back into listening mode by holding down the SETUP button for 3-4 seconds so it flashes dark blue. Open terminal, and type in "screen /dev/tty.u" and then hit tab, which should autocomplete with something that - if you've been doing arduino devlopment, should look familiar. (on windows, you will need an SSH client such as putty. Read more <a href="https://docs.particle.io/support/troubleshooting/troubleshooting-tools/core/#display-system-information">here</a>).
+    <p>A seemingly blank screen will appear. This isn't an error - type in "m" and the devices MAC address should pop up! Navigate to <a href="netreg.net.cmu.edu">netreg.net.cmu.edu</a>To register the device.
+
+      <p>Click on the green enter button, then click on [Register New Machine]. Under 'select the network', select the 'legacy wireless network' and hit contine to the right of that dropdown. The HOSTNAME is a unique name for the device on the network, the mode should be Dynamic, and the Hardware Address is the MAC address we just retrieved. (The long string of numbers, letters, and semicolons). Select your appropriate affiliation  (undergraduate or graduate student), and then register the device.</p>
+
+      <p>Hoooray! The hard part is finished! In the terminal, hit CTRL+C to exit the serial connection (or just close and re-open terminal). Put the photon back into listening mode, and go through setup again. (type in 'particle setup'). This time have the device scan for networks, and select CMU. (not CMU-SECURE or CMU-GUEST. Plain ol' CMU). The device, more likely than not, will not connect. It takes around half an hour or longer for the legacy network to recognize new registered devices. (Also, I had to hit the reset button to get my device to attempt to connect; flashing green is attempting to connect to wifi, flashing cyan is trying to connect to the internet, then solid ('breathing') cyan when it is connected).</p>
+      <p> It might be a good idea to register your phone or laptop with the CMU legacy network, while you are at it. It isn't stricly neccesary for the photon (connections go through the cloud, not through the local network) but it's can be useful for other wireless hacking. Now go outside and breathe in some fresh air.</p>
+
+    <h4>IDE introduction</h4>
+
+    <p>The particle Photon uses a web IDE which is in many respects similar to Arduino. It saves .ino files that have setup and loop functions. They use the same programming language - the photon just has a few libraries that help with IoT apps. </p>
+    <p>Navigate to <a href="https://build.particle.io/build">build.particle.io/build</a> and log in. If your photon is connected to the internet, it should automatically appear, and you are able to write code to the app from the web. We can even load our familiar blink example sketch with little effort.</p> 
+
+  
+    <h4>Resources</h4>
+    <ol>
+      <li><a href="https://docs.particle.io/guide/getting-started/intro/photon/">Extensive Photon Getting Started Guide</a></li>
+      <li><a href="https://play.google.com/store/apps/details?id=io.particle.android.app">Android App link</a>. (ios also available, search 'particle photon' in the App store).</li>
+      <li><a href="https://build.particle.io/build">The Particle Web IDE</a></li>
+    </ol>
+  </body>
+</html>
